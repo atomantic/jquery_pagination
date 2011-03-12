@@ -16,7 +16,7 @@
   $.PaginationCalculator = function(maxentries, opts) {
     this.maxentries = maxentries;
     this.opts = opts;
-  }
+  };
 
   $.extend($.PaginationCalculator.prototype, {
     /**
@@ -33,17 +33,17 @@
      * @returns {Array}
      */
     getInterval:function(current_page)  {
-      var ne_half = Math.floor(this.opts.num_display_entries/2);
-      var np = this.numPages();
-      var upper_limit = np - this.opts.num_display_entries;
-      var start = current_page > ne_half ? Math.max( Math.min(current_page - ne_half, upper_limit), 0 ) : 0;
-      var end = current_page > ne_half?Math.min(current_page+ne_half + (this.opts.num_display_entries % 2), np):Math.min(this.opts.num_display_entries, np);
-      return {start:start, end:end};
+		var ne_half = Math.floor(this.opts.num_display_entries/2),
+			np = this.numPages(),
+			upper_limit = np - this.opts.num_display_entries,
+			start = current_page > ne_half ? Math.max( Math.min(current_page - ne_half, upper_limit), 0 ) : 0,
+			end = current_page > ne_half?Math.min(current_page+ne_half + (this.opts.num_display_entries % 2), np):Math.min(this.opts.num_display_entries, np);
+		return {start:start, end:end};
     }
   });
 
   // Initialize jQuery object container for pagination renderers
-  $.PaginationRenderers = {}
+  $.PaginationRenderers = {};
 
   /**
    * @class Default renderer for rendering pagination links
@@ -52,7 +52,7 @@
     this.maxentries = maxentries;
     this.opts = opts;
     this.pc = new $.PaginationCalculator(maxentries, opts);
-  }
+  };
   $.extend($.PaginationRenderers.defaultRenderer.prototype, {
     /**
      * Helper function for generating a single link (or a span tag if it's the current page)
@@ -196,8 +196,8 @@
     renderer = new $.PaginationRenderers[opts.renderer](maxentries, opts);
 
     // Attach control events to the DOM elements
-    var pc = new $.PaginationCalculator(maxentries, opts);
-    var np = pc.numPages();
+    var pc = new $.PaginationCalculator(maxentries, opts),
+		np = pc.numPages();
     containers.bind('setPage', {numPages:np}, function(evt, page_id) {
         if(page_id >= 0 && page_id < evt.data.numPages) {
           selectPage(page_id); return false;
@@ -226,6 +226,6 @@
     }
     // call callback function
     opts.callback(current_page, containers);
-  } // End of $.fn.pagination block
+  }; // End of $.fn.pagination block
 
 })(jQuery);
